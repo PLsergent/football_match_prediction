@@ -81,6 +81,17 @@ class SportmonksAPI:
             local_team_row = [game["localteam_id"], game["round_id"]]
             visitor_team_row = [game["visitorteam_id"], game["round_id"]]
 
+            if not data:
+                continue
+
+            if data[0]["passes"] is None or data[1]["passes"] is None:
+                data[0]["passes"] = {"total": None, "percentage": None}
+                data[1]["passes"] = {"total": None, "percentage": None}
+        
+            if data[0]["shots"] is None or data[1]["shots"] is None:
+                data[0]["shots"] = {"total": None, "ongoal": None, "offgoal": None, "insidebox": None, "outsidebox": None}
+                data[1]["shots"] = {"total": None, "ongoal": None, "offgoal": None, "insidebox": None, "outsidebox": None} 
+            
             # data[0] contains data about the local team
             local_team_stats = [data[0]["shots"]["total"],
                                 data[0]["shots"]["ongoal"],
